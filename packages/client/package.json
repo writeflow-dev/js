@@ -1,0 +1,41 @@
+{
+  "name": "@writeflow/client",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "hhhjin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/writeflow-dev/js.git",
+    "directory": "packages/client"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  },
+  "dependencies": {
+    "@writeflow/types": "^0.0.5"
+  }
+}
