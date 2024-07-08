@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "moduleResolution": "Node",
     "strict": true,
-    "lib": ["ES2017", "DOM"]
+    "module": "NodeNext"
   }
 }

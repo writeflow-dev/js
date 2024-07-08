@@ -1,23 +1,9 @@
 {
   "name": "@writeflow/client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    }
-  },
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
@@ -33,9 +19,11 @@
     "directory": "packages/client"
   },
   "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@writeflow/types": "^0.0.5",
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@writeflow/types": "^0.0.5"
+    "commander": "^12.1.0"
   }
 }
