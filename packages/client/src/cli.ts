@@ -11,7 +11,7 @@ async function cli() {
     .parse()
     .opts<{ key: string; outDir: string }>();
 
-  const version = 0;
+  const version = 1;
 
   const res = await fetch(`https://api.writeflow.dev/v${version}/sdks/ts`, {
     headers: {

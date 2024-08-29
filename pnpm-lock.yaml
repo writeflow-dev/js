@@ -24,6 +24,12 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
 
+  packages/core:
+    devDependencies:
+      '@writeflow/types':
+        specifier: ^0.0.5
+        version: 0.0.5
+
   packages/react:
     devDependencies:
       '@types/react':
