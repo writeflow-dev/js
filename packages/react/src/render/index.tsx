@@ -396,6 +396,7 @@ function RichTextDefault({
         if (r.annotations.strikethrough) result = <s>{result}</s>;
         if (r.annotations.underline) result = <u>{result}</u>;
         if (r.annotations.code) result = <code>{result}</code>;
+        if (r.href) result = <a href={r.href}>{result}</a>;
         return <React.Fragment key={r.plain_text}>{result}</React.Fragment>;
       })}
     </>
