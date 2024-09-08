@@ -1,0 +1,204 @@
+---
+import type { ExtendedBlock } from "@writeflow/types";
+import { renderBlocksCore } from "../../core/src/render";
+import RichText from "./RichText.astro";
+
+interface Props {
+  blocks: ExtendedBlock[];
+  components?: Parameters<typeof renderBlocksCore>[2];
+}
+
+const { blocks, components = {} } = Astro.props as Props;
+---
+
+<Fragment>
+  {
+    renderBlocksCore(
+      blocks,
+      {
+        audio: ({ block }) => (
+          <audio controls>
+            <source
+              src={
+                block.audio.type === "file"
+                  ? block.audio.file.url
+                  : block.audio.external.url
+              }
+            />
+            Your browser does not support the audio element.
+          </audio>
+        ),
+        bookmark: ({ block }) => (
+          <div>
+            <p>
+              <RichText rich_text={block.bookmark.caption} />
+            </p>
+            <a href={block.bookmark.url}>{block.bookmark.url}</a>
+          </div>
+        ),
+        breadcrumb: ({ block }) => <div />,
+        bulleted_list: ({ children }) => <ul>{children}</ul>,
+        bulleted_list_item: ({ block, children }) => (
+          <li>
+            <RichText rich_text={block.bulleted_list_item.rich_text} />
+            {children && <div style={{ marginLeft: 24 }}>{children}</div>}
+          </li>
+        ),
+        callout: ({ block, children }) => (
+          <div>
+            <span>
+              {block.callout.icon?.type === "emoji"
+                ? block.callout.icon?.emoji
+                : "X"}
+            </span>
+            <RichText rich_text={block.callout.rich_text} />
+            <div style={{ marginLeft: 24 }}>{children}</div>
+          </div>
+        ),
+        child_database: ({ block }) => <div />,
+        child_page: ({ block }) => <div />,
+        code: ({ block }) => (
+          <pre>
+            <code>
+              <RichText rich_text={block.code.rich_text} />
+            </code>
+          </pre>
+        ),
+        column: ({ children }) => <div style={{ flex: 1 }}>{children}</div>,
+        column_list: ({ children }) => (
+          <div style={{ display: "flex" }}>{children}</div>
+        ),
+        divider: () => <hr />,
+        embed: ({ block }) => <iframe src={block.embed.url} />,
+        equation: ({ block }) => <p>{block.equation.expression}</p>,
+        file: ({ block }) => <div />,
+        heading_1: ({ block, children }) =>
+          block.heading_1.is_toggleable ? (
+            <details>
+              <summary>
+                <h1>
+                  <RichText rich_text={block.heading_1.rich_text} />
+                </h1>
+              </summary>
+              {children}
+            </details>
+          ) : (
+            <h1>
+              <RichText rich_text={block.heading_1.rich_text} />
+            </h1>
+          ),
+        heading_2: ({ block, children }) =>
+          block.heading_2.is_toggleable ? (
+            <details>
+              <summary>
+                <h2>
+                  <RichText rich_text={block.heading_2.rich_text} />
+                </h2>
+              </summary>
+              {children}
+            </details>
+          ) : (
+            <h2>
+              <RichText rich_text={block.heading_2.rich_text} />
+            </h2>
+          ),
+        heading_3: ({ block, children }) =>
+          block.heading_3.is_toggleable ? (
+            <details>
+              <summary>
+                <h3>
+                  <RichText rich_text={block.heading_3.rich_text} />
+                </h3>
+              </summary>
+              {children}
+            </details>
+          ) : (
+            <h3>
+              <RichText rich_text={block.heading_3.rich_text} />
+            </h3>
+          ),
+        paragraph: ({ block, children }) => (
+          <Fragment key={block.id}>
+            <p>
+              <RichText rich_text={block.paragraph.rich_text} />
+            </p>
+            {children && <div style={{ marginLeft: 24 }}>{children}</div>}
+          </Fragment>
+        ),
+        image: ({ block }) => (
+          <img
+            src={block.image.file.url}
+            alt={block.image.caption.map((c) => c.plain_text).join("")}
+          />
+        ),
+        link_preview: ({ block }) => <div />,
+        link_to_page: ({ block }) => <div />,
+        numbered_list: ({ children }) => <ol>{children}</ol>,
+        numbered_list_item: ({ block, children }) => (
+          <li>
+            <RichText rich_text={block.numbered_list_item.rich_text} />
+            {children && <div style={{ marginLeft: 24 }}>{children}</div>}
+          </li>
+        ),
+        mention: ({ block }) => <div />,
+        pdf: ({ block }) => <div />,
+        quote: ({ block, children }) => (
+          <blockquote style={{ borderLeft: "4px solid black", paddingLeft: 8 }}>
+            <RichText rich_text={block.quote.rich_text} />
+            {children}
+          </blockquote>
+        ),
+        synced_block: ({ block }) => <div />,
+        table: ({ children }) => (
+          <table>
+            <tbody>{children}</tbody>
+          </table>
+        ),
+        table_of_contents: ({ block }) => <div />,
+        table_row: ({ block }) => (
+          <tr>
+            {block.table_row.cells.map((cell) => (
+              <td>
+                <RichText rich_text={cell} />
+              </td>
+            ))}
+          </tr>
+        ),
+        template: ({ block }) => <div />,
+        to_do: ({ block, children }) => (
+          <div>
+            <input
+              id={block.id}
+              type="checkbox"
+              checked={block.to_do.checked}
+              disabled
+            />
+            <label for={block.id}>
+              <RichText rich_text={block.to_do.rich_text} />
+            </label>
+            {children}
+          </div>
+        ),
+        toggle: ({ block, children }) => (
+          <details>
+            <summary>
+              <RichText rich_text={block.toggle.rich_text} />
+            </summary>
+            {children}
+          </details>
+        ),
+        unsupported: () => <div>unsupported</div>,
+        video: () => <div />,
+      },
+      Object.fromEntries(
+        Object.entries(components).map(([type, Component]) => [
+          type,
+          ({ block, children }) => (
+            // @ts-expect-error
+            <Component block={block}>{children}</Component>
+          ),
+        ])
+      )
+    )
+  }
+</Fragment>

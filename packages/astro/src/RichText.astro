@@ -1,0 +1,24 @@
+---
+import type { Notion } from "@writeflow/types";
+
+interface Props {
+  rich_text: Notion.RichTextItem[];
+}
+
+const { rich_text } = Astro.props;
+---
+
+<Fragment>
+  {
+    rich_text.map((r) => {
+      let result = <Fragment>{r.plain_text}</Fragment>;
+      if (r.annotations.bold) result = <b>{result}</b>;
+      if (r.annotations.italic) result = <i>{result}</i>;
+      if (r.annotations.strikethrough) result = <s>{result}</s>;
+      if (r.annotations.underline) result = <u>{result}</u>;
+      if (r.annotations.code) result = <code>{result}</code>;
+      if (r.href) result = <a href={r.href}>{result}</a>;
+      return <Fragment key={r.plain_text}>{result}</Fragment>;
+    })
+  }
+</Fragment>
