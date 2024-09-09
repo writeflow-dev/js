@@ -1,17 +1,32 @@
 {
   "name": "@writeflow/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "type": "module",
   "exports": {
-    "render": "./src/render.ts"
+    "./render": {
+      "require": {
+        "types": "./dist/render.d.cts",
+        "default": "./dist/render.cjs"
+      },
+      "import": {
+        "types": "./dist/render.d.ts",
+        "default": "./dist/render.js"
+      }
+    }
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsup"
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "hhhjin",
   "license": "MIT",
   "devDependencies": {
-    "@writeflow/types": "^0.0.5"
+    "@writeflow/types": "^0.0.5",
+    "tsup": "^8.1.0"
   },
   "repository": {
     "type": "git",
