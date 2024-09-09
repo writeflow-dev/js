@@ -10,6 +10,9 @@ importers:
 
   packages/astro:
     dependencies:
+      '@writeflow/core':
+        specifier: ^0.0.2
+        version: 0.0.2
       astro:
         specifier: ^4.0.0
         version: 4.15.4(@types/node@20.14.10)(rollup@4.21.2)(typescript@5.5.4)
@@ -39,6 +42,9 @@ importers:
       '@writeflow/types':
         specifier: ^0.0.5
         version: 0.0.5
+      tsup:
+        specifier: ^8.1.0
+        version: 8.1.0(postcss@8.4.45)(typescript@5.5.4)
 
   packages/react:
     devDependencies:
@@ -681,6 +687,9 @@ packages:
 
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
+
+  '@writeflow/core@0.0.2':
+    resolution: {integrity: sha512-Xe8/26h3CUFtmJPMwvXQJaWKnXgFVdEegpzZBnHhEcFnURX3hrp57ux7DItm/ixdXo3PN33Gu9UXbp6O6j5PLA==}
 
   '@writeflow/types@0.0.5':
     resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
@@ -2561,6 +2570,8 @@ snapshots:
   '@types/unist@3.0.3': {}
 
   '@ungap/structured-clone@1.2.0': {}
+
+  '@writeflow/core@0.0.2': {}
 
   '@writeflow/types@0.0.5': {}
 
