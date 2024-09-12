@@ -1,20 +1,17 @@
-import type { ExtendedBlock, Notion } from "@writeflow/types";
+import type { Block } from "@writeflow/types";
 
-export type Block<T extends ExtendedBlock["type"]> = Extract<
-  ExtendedBlock,
-  { type: T }
->;
+export type PickBlock<T extends Block["type"]> = Extract<Block, { type: T }>;
 
 type Component<
   HostNode extends any,
-  T extends ExtendedBlock["type"],
+  T extends Block["type"],
   Children extends boolean = false
 > = (
   props: Children extends false
     ? {
-        block: Block<T>;
+        block: PickBlock<T>;
       }
-    : { block: Block<T>; children: HostNode[] | null }
+    : { block: PickBlock<T>; children: HostNode[] | null }
 ) => HostNode;
 
 type Container<HostNode> = (props: { children: HostNode[] }) => HostNode;
@@ -61,7 +58,7 @@ export type Components<HostNode> = {
 };
 
 function renderBlocks<HostNode>(
-  blocks: ExtendedBlock[],
+  blocks: Block[],
   components: Components<HostNode>,
   customComponents: Partial<Components<HostNode>>
 ): HostNode[] {

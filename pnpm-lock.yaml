@@ -18,8 +18,8 @@ importers:
         version: 4.15.4(@types/node@20.14.10)(rollup@4.21.2)(typescript@5.5.4)
     devDependencies:
       '@writeflow/types':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
 
   packages/client:
     dependencies:
@@ -40,8 +40,8 @@ importers:
   packages/core:
     devDependencies:
       '@writeflow/types':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.7
+        version: 0.0.7
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.4.45)(typescript@5.5.4)
@@ -693,6 +693,12 @@ packages:
 
   '@writeflow/types@0.0.5':
     resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
+
+  '@writeflow/types@0.0.6':
+    resolution: {integrity: sha512-7RkZs2zmu0Fiv8GUTPPubv1T8XQJ9Ce7jm27FKnhuBZZ1l+U3vFOm2GxUFVh9aZahlZ8ArxWvjM2JRr3sYY8qQ==}
+
+  '@writeflow/types@0.0.7':
+    resolution: {integrity: sha512-8NeSY9srl6KKzdLYAAt76TBDYb3dXGNRelSLrOZUJeutqOL0muIz9OZpoIT1ITDLgSpDuTpuxoiIBKWg4XNAOg==}
 
   acorn@8.12.1:
     resolution: {integrity: sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==}
@@ -1734,6 +1740,10 @@ packages:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
 
+  source-map-js@1.2.1:
+    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+    engines: {node: '>=0.10.0'}
+
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
@@ -2574,6 +2584,10 @@ snapshots:
   '@writeflow/core@0.0.2': {}
 
   '@writeflow/types@0.0.5': {}
+
+  '@writeflow/types@0.0.6': {}
+
+  '@writeflow/types@0.0.7': {}
 
   acorn@8.12.1: {}
 
@@ -3697,7 +3711,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.1.0
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   preferred-pm@4.0.0:
     dependencies:
@@ -3936,6 +3950,8 @@ snapshots:
   slash@3.0.0: {}
 
   source-map-js@1.2.0: {}
+
+  source-map-js@1.2.1: {}
 
   source-map@0.8.0-beta.0:
     dependencies:
