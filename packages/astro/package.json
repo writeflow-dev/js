@@ -1,10 +1,10 @@
 {
   "name": "@writeflow/astro",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "type": "module",
   "exports": {
-    ".": "./src/Renderer.astro"
+    ".": "./src/index.ts"
   },
   "files": [
     "src"
@@ -14,7 +14,7 @@
   "author": "hhhjin",
   "license": "MIT",
   "devDependencies": {
-    "@writeflow/types": "^0.0.5"
+    "@writeflow/types": "^0.0.7"
   },
   "peerDependencies": {
     "astro": "^4.0.0"

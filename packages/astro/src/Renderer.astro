@@ -1,10 +1,10 @@
 ---
-import type { ExtendedBlock } from "@writeflow/types";
+import type { Block } from "@writeflow/types";
 import { renderBlocksCore } from "@writeflow/core/render";
 import RichText from "./RichText.astro";
 
 interface Props {
-  blocks: ExtendedBlock[];
+  blocks: Block[];
   components?: Parameters<typeof renderBlocksCore>[2];
 }
 

@@ -18,8 +18,8 @@ importers:
         version: 4.15.4(@types/node@20.14.10)(rollup@4.21.2)(typescript@5.5.4)
     devDependencies:
       '@writeflow/types':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
 
   packages/client:
     dependencies:
@@ -693,9 +693,6 @@ packages:
 
   '@writeflow/types@0.0.5':
     resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
-
-  '@writeflow/types@0.0.6':
-    resolution: {integrity: sha512-7RkZs2zmu0Fiv8GUTPPubv1T8XQJ9Ce7jm27FKnhuBZZ1l+U3vFOm2GxUFVh9aZahlZ8ArxWvjM2JRr3sYY8qQ==}
 
   '@writeflow/types@0.0.7':
     resolution: {integrity: sha512-8NeSY9srl6KKzdLYAAt76TBDYb3dXGNRelSLrOZUJeutqOL0muIz9OZpoIT1ITDLgSpDuTpuxoiIBKWg4XNAOg==}
@@ -2584,8 +2581,6 @@ snapshots:
   '@writeflow/core@0.0.2': {}
 
   '@writeflow/types@0.0.5': {}
-
-  '@writeflow/types@0.0.6': {}
 
   '@writeflow/types@0.0.7': {}
 
