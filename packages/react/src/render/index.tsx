@@ -1,21 +1,18 @@
 import * as React from "react";
 import type { ComponentType, ReactNode } from "react";
-import type { ExtendedBlock, Notion } from "@writeflow/types";
+import type { Block, Notion } from "@writeflow/types";
 
-export type Block<T extends ExtendedBlock["type"]> = Extract<
-  ExtendedBlock,
-  { type: T }
->;
+export type PickBlock<T extends Block["type"]> = Extract<Block, { type: T }>;
 
 type Component<
-  T extends ExtendedBlock["type"],
+  T extends Block["type"],
   Children extends boolean = false
 > = ComponentType<
   Children extends false
     ? {
-        block: Block<T>;
+        block: PickBlock<T>;
       }
-    : { block: Block<T>; children: ReactNode }
+    : { block: PickBlock<T>; children: ReactNode }
 >;
 
 type Container = ComponentType<{ children: ReactNode }>;
@@ -64,7 +61,7 @@ export type Components = {
 };
 
 export function renderBlocks(
-  blocks: ExtendedBlock[],
+  blocks: Block[],
   components?: Components
 ): ReactNode[] {
   const result: ReactNode[] = [];
