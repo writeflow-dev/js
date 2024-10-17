@@ -4,7 +4,8 @@
   "description": "",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./renderer": "./src/Renderer.astro"
   },
   "files": [
     "src"
@@ -14,7 +15,7 @@
   "author": "hhhjin",
   "license": "MIT",
   "devDependencies": {
-    "@writeflow/types": "^0.0.7"
+    "@writeflow/types": "^0.0.10"
   },
   "peerDependencies": {
     "astro": "^4.0.0"
@@ -25,6 +26,6 @@
     "directory": "packages/astro"
   },
   "dependencies": {
-    "@writeflow/core": "^0.0.2"
+    "@writeflow/core": "^0.0.5"
   }
 }

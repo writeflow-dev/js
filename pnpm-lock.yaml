@@ -11,8 +11,8 @@ importers:
   packages/astro:
     dependencies:
       '@writeflow/core':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.5
+        version: 0.0.5
       astro:
         specifier: ^4.0.0
         version: 4.15.4(@types/node@20.14.10)(rollup@4.21.2)(typescript@5.5.4)
@@ -688,8 +688,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@writeflow/core@0.0.2':
-    resolution: {integrity: sha512-Xe8/26h3CUFtmJPMwvXQJaWKnXgFVdEegpzZBnHhEcFnURX3hrp57ux7DItm/ixdXo3PN33Gu9UXbp6O6j5PLA==}
+  '@writeflow/core@0.0.5':
+    resolution: {integrity: sha512-T/NN4XRBO53vzgwmyja1Y/RvMdaNaXVH6XMD59rcCbu72Z9KGS9bwiHtnq1PeaygrULQIp7DQQ2k4KcXMPJJOA==}
 
   '@writeflow/types@0.0.10':
     resolution: {integrity: sha512-8eMHzY2E2sLWLzouljZFdUzW6F9NXZ70z7FPvBVLElxEHTFK7joW5FLG21OEACwk9FTLaIXf2ehllFUP2N58HA==}
@@ -2581,7 +2581,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@writeflow/core@0.0.2': {}
+  '@writeflow/core@0.0.5': {}
 
   '@writeflow/types@0.0.10': {}
 

@@ -1,11 +1,11 @@
 ---
 import type { Block } from "@writeflow/types";
-import { renderBlocksCore } from "@writeflow/core/render";
+import { renderBlocks } from "@writeflow/core/render";
 import RichText from "./RichText.astro";
 
 interface Props {
   blocks: Block[];
-  components?: Parameters<typeof renderBlocksCore>[2];
+  components?: Parameters<typeof renderBlocks>[2];
 }
 
 const { blocks, components = {} } = Astro.props as Props;
@@ -13,7 +13,7 @@ const { blocks, components = {} } = Astro.props as Props;
 
 <Fragment>
   {
-    renderBlocksCore(
+    renderBlocks(
       blocks,
       {
         audio: ({ block }) => (

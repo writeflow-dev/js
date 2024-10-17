@@ -1,8 +1,10 @@
 ---
-import type { Notion } from "@writeflow/types";
+import type { PickNotionPageProperty } from "@writeflow/types";
+
+
 
 interface Props {
-  rich_text: Notion.RichTextItem[];
+  rich_text: PickNotionPageProperty<"rich_text">["rich_text"];
 }
 
 const { rich_text } = Astro.props;
