@@ -219,4 +219,4 @@ function renderBlocks<HostNode>(
   return result;
 }
 
-export { renderBlocks as renderBlocksCore };
+export { renderBlocks };
