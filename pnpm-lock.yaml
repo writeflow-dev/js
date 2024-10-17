@@ -18,8 +18,8 @@ importers:
         version: 4.15.4(@types/node@20.14.10)(rollup@4.21.2)(typescript@5.5.4)
     devDependencies:
       '@writeflow/types':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.10
+        version: 0.0.10
 
   packages/client:
     dependencies:
@@ -40,8 +40,8 @@ importers:
   packages/core:
     devDependencies:
       '@writeflow/types':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.10
+        version: 0.0.10
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.4.45)(typescript@5.5.4)
@@ -690,6 +690,9 @@ packages:
 
   '@writeflow/core@0.0.2':
     resolution: {integrity: sha512-Xe8/26h3CUFtmJPMwvXQJaWKnXgFVdEegpzZBnHhEcFnURX3hrp57ux7DItm/ixdXo3PN33Gu9UXbp6O6j5PLA==}
+
+  '@writeflow/types@0.0.10':
+    resolution: {integrity: sha512-8eMHzY2E2sLWLzouljZFdUzW6F9NXZ70z7FPvBVLElxEHTFK7joW5FLG21OEACwk9FTLaIXf2ehllFUP2N58HA==}
 
   '@writeflow/types@0.0.5':
     resolution: {integrity: sha512-jLC2ta5neL6VXTJRFSlLgNLRSduoM0C7TtxZaTX6kl+xqkDUJhYVe9AdShdWnCOxrAijwtWadk4XnGbFUckL/w==}
@@ -2579,6 +2582,8 @@ snapshots:
   '@ungap/structured-clone@1.2.0': {}
 
   '@writeflow/core@0.0.2': {}
+
+  '@writeflow/types@0.0.10': {}
 
   '@writeflow/types@0.0.5': {}
 
