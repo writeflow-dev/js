@@ -5,18 +5,19 @@ import RichText from "./RichText.astro";
 
 interface Props {
   blocks: Block[];
-  components?: Parameters<typeof renderBlocks>[2];
+  Components?: Parameters<typeof renderBlocks>[1];
 }
 
-const { blocks, components = {} } = Astro.props as Props;
+const { blocks, Components = {} } = Astro.props as Props;
 ---
 
 <Fragment>
   {
-    renderBlocks(
-      blocks,
-      {
-        audio: ({ block }) => (
+    renderBlocks(blocks, {
+      audio: ({ block }) =>
+        Components.audio ? (
+          <Components.audio block={block} />
+        ) : (
           <audio controls>
             <source
               src={
@@ -28,7 +29,10 @@ const { blocks, components = {} } = Astro.props as Props;
             Your browser does not support the audio element.
           </audio>
         ),
-        bookmark: ({ block }) => (
+      bookmark: ({ block }) =>
+        Components.bookmark ? (
+          <Components.bookmark block={block} />
+        ) : (
           <div>
             <p>
               <RichText rich_text={block.bookmark.caption} />
@@ -36,15 +40,27 @@ const { blocks, components = {} } = Astro.props as Props;
             <a href={block.bookmark.url}>{block.bookmark.url}</a>
           </div>
         ),
-        breadcrumb: ({ block }) => <div />,
-        bulleted_list: ({ children }) => <ul>{children}</ul>,
-        bulleted_list_item: ({ block, children }) => (
+      breadcrumb: ({ block }) =>
+        Components.breadcrumb ? Components.breadcrumb({ block }) : <div />,
+      bulleted_list: ({ children }) =>
+        Components.bulleted_list ? (
+          <Components.bulleted_list children={children} />
+        ) : (
+          <ul>{children}</ul>
+        ),
+      bulleted_list_item: ({ block, children }) =>
+        Components.bulleted_list_item ? (
+          <Components.bulleted_list_item block={block} children={children} />
+        ) : (
           <li>
             <RichText rich_text={block.bulleted_list_item.rich_text} />
             {children && <div style={{ marginLeft: 24 }}>{children}</div>}
           </li>
         ),
-        callout: ({ block, children }) => (
+      callout: ({ block, children }) =>
+        Components.callout ? (
+          <Components.callout block={block} children={children} />
+        ) : (
           <div>
             <span>
               {block.callout.icon?.type === "emoji"
@@ -55,69 +71,109 @@ const { blocks, components = {} } = Astro.props as Props;
             <div style={{ marginLeft: 24 }}>{children}</div>
           </div>
         ),
-        child_database: ({ block }) => <div />,
-        child_page: ({ block }) => <div />,
-        code: ({ block }) => (
+      child_database: ({ block, children }) =>
+        Components.child_database ? (
+          <Components.child_database block={block} children={children} />
+        ) : (
+          <div />
+        ),
+      child_page: ({ block, children }) =>
+        Components.child_page ? (
+          <Components.child_page block={block} children={children} />
+        ) : (
+          <div />
+        ),
+      code: ({ block }) =>
+        Components.code ? (
+          <Components.code block={block} />
+        ) : (
           <pre>
             <code>
               <RichText rich_text={block.code.rich_text} />
             </code>
           </pre>
         ),
-        column: ({ children }) => <div style={{ flex: 1 }}>{children}</div>,
-        column_list: ({ children }) => (
+      column: ({ block, children }) =>
+        Components.column ? (
+          <Components.column block={block} children={children} />
+        ) : (
+          <div style={{ flex: 1 }}>{children}</div>
+        ),
+      column_list: ({ block, children }) =>
+        Components.column_list ? (
+          <Components.column_list block={block} children={children} />
+        ) : (
           <div style={{ display: "flex" }}>{children}</div>
         ),
-        divider: () => <hr />,
-        embed: ({ block }) => <iframe src={block.embed.url} />,
-        equation: ({ block }) => <p>{block.equation.expression}</p>,
-        file: ({ block }) => <div />,
-        heading_1: ({ block, children }) =>
-          block.heading_1.is_toggleable ? (
-            <details>
-              <summary>
-                <h1>
-                  <RichText rich_text={block.heading_1.rich_text} />
-                </h1>
-              </summary>
-              {children}
-            </details>
-          ) : (
-            <h1>
-              <RichText rich_text={block.heading_1.rich_text} />
-            </h1>
-          ),
-        heading_2: ({ block, children }) =>
-          block.heading_2.is_toggleable ? (
-            <details>
-              <summary>
-                <h2>
-                  <RichText rich_text={block.heading_2.rich_text} />
-                </h2>
-              </summary>
-              {children}
-            </details>
-          ) : (
-            <h2>
-              <RichText rich_text={block.heading_2.rich_text} />
-            </h2>
-          ),
-        heading_3: ({ block, children }) =>
-          block.heading_3.is_toggleable ? (
-            <details>
-              <summary>
-                <h3>
-                  <RichText rich_text={block.heading_3.rich_text} />
-                </h3>
-              </summary>
-              {children}
-            </details>
-          ) : (
-            <h3>
-              <RichText rich_text={block.heading_3.rich_text} />
-            </h3>
-          ),
-        paragraph: ({ block, children }) => (
+      divider: ({ block }) =>
+        Components.divider ? <Components.divider block={block} /> : <hr />,
+      embed: ({ block }) =>
+        Components.embed ? (
+          <Components.embed block={block} />
+        ) : (
+          <iframe src={block.embed.url} />
+        ),
+      equation: ({ block }) =>
+        Components.equation ? (
+          <Components.equation block={block} />
+        ) : (
+          <p>{block.equation.expression}</p>
+        ),
+      heading_1: ({ block, children }) =>
+        Components.heading_1 ? (
+          <Components.heading_1 block={block} children={children} />
+        ) : block.heading_1.is_toggleable ? (
+          <details>
+            <summary>
+              <h1>
+                <RichText rich_text={block.heading_1.rich_text} />
+              </h1>
+            </summary>
+            {children}
+          </details>
+        ) : (
+          <h1>
+            <RichText rich_text={block.heading_1.rich_text} />
+          </h1>
+        ),
+      heading_2: ({ block, children }) =>
+        Components.heading_2 ? (
+          <Components.heading_2 block={block} children={children} />
+        ) : block.heading_2.is_toggleable ? (
+          <details>
+            <summary>
+              <h2>
+                <RichText rich_text={block.heading_2.rich_text} />
+              </h2>
+            </summary>
+            {children}
+          </details>
+        ) : (
+          <h2>
+            <RichText rich_text={block.heading_2.rich_text} />
+          </h2>
+        ),
+      heading_3: ({ block, children }) =>
+        Components.heading_3 ? (
+          <Components.heading_3 block={block} children={children} />
+        ) : block.heading_3.is_toggleable ? (
+          <details>
+            <summary>
+              <h3>
+                <RichText rich_text={block.heading_3.rich_text} />
+              </h3>
+            </summary>
+            {children}
+          </details>
+        ) : (
+          <h3>
+            <RichText rich_text={block.heading_3.rich_text} />
+          </h3>
+        ),
+      paragraph: ({ block, children }) =>
+        Components.paragraph ? (
+          <Components.paragraph block={block} children={children} />
+        ) : (
           <Fragment key={block.id}>
             <p>
               <RichText rich_text={block.paragraph.rich_text} />
@@ -125,37 +181,90 @@ const { blocks, components = {} } = Astro.props as Props;
             {children && <div style={{ marginLeft: 24 }}>{children}</div>}
           </Fragment>
         ),
-        image: ({ block }) => (
+      image: ({ block }) =>
+        Components.image ? (
+          <Components.image block={block} />
+        ) : (
           <img
             src={block.image.file.url}
             alt={block.image.caption.map((c) => c.plain_text).join("")}
           />
         ),
-        link_preview: ({ block }) => <div />,
-        link_to_page: ({ block }) => <div />,
-        numbered_list: ({ children }) => <ol>{children}</ol>,
-        numbered_list_item: ({ block, children }) => (
+      link_preview: ({ block }) =>
+        Components.link_preview ? (
+          <Components.link_preview block={block} />
+        ) : (
+          <div />
+        ),
+      link_to_content: ({ block }) =>
+        Components.link_to_content ? (
+          <Components.link_to_content block={block} />
+        ) : (
+          <a href={block.link_to_content.slug}>{block.link_to_content.title}</a>
+        ),
+      link_to_page: ({ block }) =>
+        Components.link_to_page ? (
+          <Components.link_to_page block={block} />
+        ) : (
+          <div />
+        ),
+      numbered_list: ({ children }) =>
+        Components.numbered_list ? (
+          <Components.numbered_list children={children} />
+        ) : (
+          <ol>{children}</ol>
+        ),
+      numbered_list_item: ({ block, children }) =>
+        Components.numbered_list_item ? (
+          <Components.numbered_list_item block={block} children={children} />
+        ) : (
           <li>
             <RichText rich_text={block.numbered_list_item.rich_text} />
             {children && <div style={{ marginLeft: 24 }}>{children}</div>}
           </li>
         ),
-        mention: ({ block }) => <div />,
-        pdf: ({ block }) => <div />,
-        quote: ({ block, children }) => (
+      mention: ({ block }) =>
+        Components.mention ? (
+          // todo
+          <div />
+        ) : (
+          <div />
+        ),
+      pdf: ({ block }) =>
+        Components.pdf ? <Components.pdf block={block} /> : <div />,
+      quote: ({ block, children }) =>
+        Components.quote ? (
+          <Components.quote block={block} children={children} />
+        ) : (
           <blockquote style={{ borderLeft: "4px solid black", paddingLeft: 8 }}>
             <RichText rich_text={block.quote.rich_text} />
             {children}
           </blockquote>
         ),
-        synced_block: ({ block }) => <div />,
-        table: ({ children }) => (
+      synced_block: ({ block, children }) =>
+        Components.synced_block ? (
+          <Components.synced_block block={block} children={children} />
+        ) : (
+          <div />
+        ),
+      table: ({ block, children }) =>
+        Components.table ? (
+          <Components.table block={block} children={children} />
+        ) : (
           <table>
             <tbody>{children}</tbody>
           </table>
         ),
-        table_of_contents: ({ block }) => <div />,
-        table_row: ({ block }) => (
+      table_of_contents: ({ block }) =>
+        Components.table_of_contents ? (
+          <Components.table_of_contents block={block} />
+        ) : (
+          <div />
+        ),
+      table_row: ({ block }) =>
+        Components.table_row ? (
+          <Components.table_row block={block} />
+        ) : (
           <tr>
             {block.table_row.cells.map((cell) => (
               <td>
@@ -164,8 +273,12 @@ const { blocks, components = {} } = Astro.props as Props;
             ))}
           </tr>
         ),
-        template: ({ block }) => <div />,
-        to_do: ({ block, children }) => (
+      template: ({ block }) =>
+        Components.template ? <Components.template block={block} /> : <div />,
+      to_do: ({ block, children }) =>
+        Components.to_do ? (
+          <Components.to_do block={block} children={children} />
+        ) : (
           <div>
             <input
               id={block.id}
@@ -179,7 +292,10 @@ const { blocks, components = {} } = Astro.props as Props;
             {children}
           </div>
         ),
-        toggle: ({ block, children }) => (
+      toggle: ({ block, children }) =>
+        Components.toggle ? (
+          <Components.toggle block={block} children={children} />
+        ) : (
           <details>
             <summary>
               <RichText rich_text={block.toggle.rich_text} />
@@ -187,18 +303,14 @@ const { blocks, components = {} } = Astro.props as Props;
             {children}
           </details>
         ),
-        unsupported: () => <div>unsupported</div>,
-        video: () => <div />,
-      },
-      Object.fromEntries(
-        Object.entries(components).map(([type, Component]) => [
-          type,
-          ({ block, children }) => (
-            // @ts-expect-error
-            <Component block={block}>{children}</Component>
-          ),
-        ])
-      )
-    )
+      unsupported: ({ block }) =>
+        Components.unsupported ? (
+          <Components.unsupported block={block} />
+        ) : (
+          <div>unsupported</div>
+        ),
+      video: ({ block }) =>
+        Components.video ? <Components.video block={block} /> : <div />,
+    })
   }
 </Fragment>

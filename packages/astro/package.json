@@ -1,11 +1,12 @@
 {
   "name": "@writeflow/astro",
-  "version": "0.0.5",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./renderer": "./src/Renderer.astro"
+    "./Renderer": "./src/Renderer.astro",
+    "./RichText": "./src/RichText.astro"
   },
   "files": [
     "src"
@@ -15,7 +16,7 @@
   "author": "hhhjin",
   "license": "MIT",
   "devDependencies": {
-    "@writeflow/types": "^0.0.10"
+    "@writeflow/types": "^0.1.0"
   },
   "peerDependencies": {
     "astro": "^4.0.0"
@@ -26,6 +27,6 @@
     "directory": "packages/astro"
   },
   "dependencies": {
-    "@writeflow/core": "^0.0.5"
+    "@writeflow/core": "^0.1.1"
   }
 }
