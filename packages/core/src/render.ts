@@ -48,6 +48,7 @@ export type Components<HostNode> = {
   file: Component<HostNode, "file">;
   image: Component<HostNode, "image">;
   link_preview: Component<HostNode, "link_preview">;
+  link_to_content: Component<HostNode, "link_to_content">;
   link_to_page: Component<HostNode, "link_to_page">;
   mention: {};
   pdf: Component<HostNode, "pdf">;
@@ -59,8 +60,7 @@ export type Components<HostNode> = {
 
 function renderBlocks<HostNode>(
   blocks: Block[],
-  components: Components<HostNode>,
-  customComponents: Partial<Components<HostNode>>
+  components: Partial<Components<HostNode>>
 ): HostNode[] {
   const result: HostNode[] = [];
   let tmp: HostNode[] = [];
@@ -69,24 +69,17 @@ function renderBlocks<HostNode>(
     if (block.type === "bulleted_list_item") {
       const BulletedList = components.bulleted_list;
       const BulletedListItem = components.bulleted_list_item;
-      const CustomBulletedList = customComponents.bulleted_list;
-      const CustomBulletedListItem = customComponents.bulleted_list_item;
       const children =
-        block.children &&
-        renderBlocks(block.children, components, customComponents);
+        block.children && renderBlocks(block.children, components);
 
-      tmp.push(
-        CustomBulletedListItem
-          ? CustomBulletedListItem({ block, children })
-          : BulletedListItem({ block, children })
-      );
+      if (BulletedListItem) {
+        tmp.push(BulletedListItem({ block, children }));
+      }
 
       if (blocks[idx + 1]?.type !== "bulleted_list_item") {
-        result.push(
-          CustomBulletedList
-            ? CustomBulletedList({ children: tmp })
-            : BulletedList({ children: tmp })
-        );
+        if (BulletedList) {
+          result.push(BulletedList({ children: tmp }));
+        }
         tmp = [];
       }
 
@@ -96,24 +89,17 @@ function renderBlocks<HostNode>(
     if (block.type === "numbered_list_item") {
       const NumberedList = components.numbered_list;
       const NumberedListItem = components.numbered_list_item;
-      const CustomNumberedList = customComponents.numbered_list;
-      const CustomNumberedListItem = customComponents.numbered_list_item;
       const children =
-        block.children &&
-        renderBlocks(block.children, components, customComponents);
+        block.children && renderBlocks(block.children, components);
 
-      tmp.push(
-        CustomNumberedListItem
-          ? CustomNumberedListItem({ block, children })
-          : NumberedListItem({ block, children })
-      );
+      if (NumberedListItem) {
+        tmp.push(NumberedListItem({ block, children }));
+      }
 
       if (blocks[idx + 1]?.type !== "numbered_list_item") {
-        result.push(
-          CustomNumberedList
-            ? CustomNumberedList({ children: tmp })
-            : NumberedList({ children: tmp })
-        );
+        if (NumberedList) {
+          result.push(NumberedList({ children: tmp }));
+        }
         tmp = [];
       }
 
@@ -122,98 +108,119 @@ function renderBlocks<HostNode>(
 
     if (block.type === "table") {
       const Table = components.table;
-      const CustomTable = customComponents.table;
       const children =
-        block.children &&
-        renderBlocks(block.children, components, customComponents);
-      return result.push(
-        CustomTable
-          ? CustomTable({ block, children })
-          : Table({ block, children })
-      );
+        block.children && renderBlocks(block.children, components);
+      if (Table) {
+        result.push(Table({ block, children }));
+      }
+      return;
     }
 
     if (block.type === "table_row") {
       const TableRow = components.table_row;
-      const CustomTableRow = customComponents.table_row;
-      return result.push(
-        CustomTableRow ? CustomTableRow({ block }) : TableRow({ block })
-      );
+      if (TableRow) {
+        result.push(TableRow({ block }));
+      }
+      return;
     }
 
-    let CustomComponent = customComponents[block.type];
-    let children =
-      block.children &&
-      renderBlocks(block.children, components, customComponents);
+    let children = block.children && renderBlocks(block.children, components);
 
     const defaultComponent = () => {
       switch (block.type) {
         case "audio":
-          return components.audio({ block });
+          return components.audio ? components.audio({ block }) : null;
 
         case "bookmark":
-          return components.bookmark({ block });
+          return components.bookmark ? components.bookmark({ block }) : null;
 
         case "callout":
-          return components.callout({ block, children });
+          return components.callout
+            ? components.callout({ block, children })
+            : null;
 
         case "code":
-          return components.code({ block });
+          return components.code ? components.code({ block }) : null;
 
         case "column_list":
-          return components.column_list({ block, children });
+          return components.column_list
+            ? components.column_list({ block, children })
+            : null;
 
         case "column":
-          return components.column({ block, children });
+          return components.column
+            ? components.column({ block, children })
+            : null;
 
         case "divider":
-          return components.divider({ block });
+          return components.divider ? components.divider({ block }) : null;
 
         case "embed":
-          return components.embed({ block });
+          return components.embed ? components.embed({ block }) : null;
 
         case "equation":
-          return components.equation({ block });
+          return components.equation ? components.equation({ block }) : null;
 
         case "heading_1":
-          return components.heading_1({ block, children });
+          return components.heading_1
+            ? components.heading_1({ block, children })
+            : null;
 
         case "heading_2":
-          return components.heading_2({ block, children });
+          return components.heading_2
+            ? components.heading_2({ block, children })
+            : null;
 
         case "heading_3":
-          return components.heading_3({ block, children });
+          return components.heading_3
+            ? components.heading_3({ block, children })
+            : null;
 
         case "image":
-          return components.image({ block });
+          return components.image ? components.image({ block }) : null;
+
+        case "link_to_content":
+          return components.link_to_content
+            ? components.link_to_content({ block })
+            : null;
 
         case "paragraph":
-          return components.paragraph({ block, children });
+          return components.paragraph
+            ? components.paragraph({ block, children })
+            : null;
 
         case "quote":
-          return components.quote({ block, children });
+          return components.quote
+            ? components.quote({ block, children })
+            : null;
 
         case "to_do":
-          return components.to_do({ block, children });
+          return components.to_do
+            ? components.to_do({ block, children })
+            : null;
 
         case "toggle":
-          return components.toggle({ block, children });
+          return components.toggle
+            ? components.toggle({ block, children })
+            : null;
 
         case "unsupported":
-          return components.unsupported({ block });
+          return components.unsupported
+            ? components.unsupported({ block })
+            : null;
 
         default:
-          // @ts-expect-error
-          return components.unsupported({ block });
+          return components.unsupported
+            ? // @ts-expect-error
+              components.unsupported({ block })
+            : null;
       }
     };
 
-    result.push(
-      CustomComponent
-        ? // @ts-expect-error
-          CustomComponent({ block, children })
-        : defaultComponent()
-    );
+    const component = defaultComponent();
+    if (component) {
+      result.push(component);
+    }
   });
 
   return result;

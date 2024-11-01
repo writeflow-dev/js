@@ -1,6 +1,6 @@
 {
   "name": "@writeflow/core",
-  "version": "0.0.5",
+  "version": "0.1.1",
   "description": "",
   "type": "module",
   "exports": {
@@ -25,7 +25,7 @@
   "author": "hhhjin",
   "license": "MIT",
   "devDependencies": {
-    "@writeflow/types": "^0.0.10",
+    "@writeflow/types": "^0.1.0",
     "tsup": "^8.1.0"
   },
   "repository": {
